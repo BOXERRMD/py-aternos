@@ -114,3 +114,4 @@ tests/samples/login_pswd.txt
 # NPM
 node_modules/
 /.idea
+test.py

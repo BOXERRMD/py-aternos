@@ -189,6 +189,7 @@ class AternosConfig:
         optreq = self.atserv.atserver_request(
             f'{BASE_URL}/options', 'GET'
         )
+
         opttree = lxml.html.fromstring(optreq)
         imgopt = opttree.xpath(
             '//div[@class="options-other-input image-switch"]'

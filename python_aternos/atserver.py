@@ -140,7 +140,7 @@ class AternosServer:
                 is unable to start the server
         """
 
-        print(headstart, access_credits)
+        #print(headstart, access_credits)
         startreq = self.atserver_request(
             f'{SERVER_URL}/start',
             'GET', params={
@@ -156,22 +156,41 @@ class AternosServer:
         if startresult['success']:
             return
 
-        error = startresult['error']
+        info = startresult
 
-        if error == 'eula' and accepteula:
+        if info['data']['status'] == 'eula' and accepteula:
             self.eula()
             self.start(accepteula=False)
             return
 
-        raise ServerStartError(error)
+        if info['error'] != None and info['data']['status'] == 'already':
+            info = 'already'
+
+        raise ServerStartError(info)
+
 
     def confirm(self) -> None:
-        """Confirms server launching"""
+        """Confirms server launching
 
-        self.atserver_request(
-            f'{SERVER_URL}/confirm',
-            'GET', sendtoken=True,
-        )
+        Return:
+            bool
+        """
+
+        stat = self.status
+
+        if stat == 'online':
+            return True
+        return False
+
+
+    def starting_stat(self):
+        """Return actual status server
+
+        Return:
+            str -> self.status
+        """
+
+        return self.status
 
     def stop(self) -> None:
         """Stops the server"""
@@ -181,13 +200,6 @@ class AternosServer:
             'GET', sendtoken=True,
         )
 
-    def cancel(self) -> None:
-        """Cancels server launching"""
-
-        self.atserver_request(
-            f'{SERVER_URL}/cancel',
-            'GET', sendtoken=True,
-        )
 
     def restart(self) -> None:
         """Restarts the server"""
@@ -315,17 +327,6 @@ class AternosServer:
         self.fetch()
         return self._info['ip']
 
-    @property
-    def ip(self) -> str:
-        """ip adress
-
-        Returns:
-            ip adress (test.aternos.me)
-
-        """
-        self.fetch()
-        print('_info --> ' ,self._info)
-        return self._info['ip']
 
     @property
     def port(self) -> int:

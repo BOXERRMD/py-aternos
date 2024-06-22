@@ -1,5 +1,6 @@
 # Import
 from python_aternos import Client
+import time
 
 # Create object
 atclient = Client()
@@ -22,16 +23,16 @@ myserv = servs[0]
 # Start
 
 # You can also find server by IP
-testserv = None
-for serv in servs:
-    if (serv.ip == 'test7747.aternos.me'):
-        testserv = serv
+testserv = myserv
 
-print(testserv)
+
+#print(testserv)
 
 if testserv is not None:
     # Prints the server software and its version
     # (for example, "Vanilla 1.12.2")
-    print(testserv.software, testserv.version)
+    #print(testserv.software, testserv.version)
     # Starts server
-    testserv.start()
+    print(testserv.set_subdomain(value="test7747"))
+
+
