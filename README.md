@@ -22,21 +22,9 @@
 An unofficial Aternos API written in Python.  
 It uses [aternos](https://aternos.org/)' private API and html parsing.
 
-> [!WARNING]
->
-> This library is no longer maintained, because:
-> 1. Aternos started detecting all automated requests (and, therefore, ToS violations)
-> via JS code in `AJAX_TOKEN` which is executed incorrectly in Js2Py and
-> requires a NodeJS DOM library (at least) or a browser engine.
-> For details, see [#85](https://github.com/DarkCat09/python-aternos/issues/85).
-> 2. Aternos frontend is protected with Cloudflare, so this library fails to parse pages
-> in case of, for example, blocked or suspicious IP address (e.g. web hosting).
-> CF shows IUAM page, often with captcha. We need a browser engine like undetected-chromedriver and an AI or a man solving captchas.
-> 3. Last Aternos API update broke nearly everything.
-> 4. I have no more motivation and not enough time to work on this, nor need in using Aternos.
->
-> I'm so sorry. If you want to continue development of python-aternos,
-> [contact me](https://url.dc09.ru/contact), but I think it's better to write from scratch.
+> # WARNING !
+> Development has been resumed, but it's possible that the module **contains functions/classes that don't work at the moment**. 
+> However, you can still manage your server with peace of mind *(start, too much, restart...)*.
 
 Python Aternos supports:
 
