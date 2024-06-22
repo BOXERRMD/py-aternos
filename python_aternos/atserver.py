@@ -58,6 +58,7 @@ class Status(enum.IntEnum):
 class AternosServer:
     """Class for controlling your Aternos Minecraft server"""
 
+
     def __init__(
             self, servid: str,
             atconn: AternosConnect,
@@ -93,6 +94,7 @@ class AternosServer:
         page = self.atserver_request(
             f'{BASE_URL}/server', 'GET'
         )
+        #print(page.content)
         match = status_re.search(page.text)
 
         if match is None:
@@ -138,6 +140,7 @@ class AternosServer:
                 is unable to start the server
         """
 
+        print(headstart, access_credits)
         startreq = self.atserver_request(
             f'{SERVER_URL}/start',
             'GET', params={
@@ -147,6 +150,8 @@ class AternosServer:
             sendtoken=True,
         )
         startresult = startreq.json()
+
+        print(startresult)
 
         if startresult['success']:
             return
@@ -285,7 +290,7 @@ class AternosServer:
         Returns:
             MOTD
         """
-
+        self.fetch()
         return self._info['motd']
 
     @property
@@ -296,7 +301,7 @@ class AternosServer:
         Returns:
             Server address
         """
-
+        self.fetch()
         return f'{self.domain}:{self.port}'
 
     @property
@@ -307,7 +312,19 @@ class AternosServer:
         Returns:
             Domain
         """
+        self.fetch()
+        return self._info['ip']
 
+    @property
+    def ip(self) -> str:
+        """ip adress
+
+        Returns:
+            ip adress (test.aternos.me)
+
+        """
+        self.fetch()
+        print('_info --> ' ,self._info)
         return self._info['ip']
 
     @property
@@ -317,7 +334,7 @@ class AternosServer:
         Returns:
             Port
         """
-
+        self.fetch()
         return self._info['port']
 
     @property
@@ -327,7 +344,7 @@ class AternosServer:
         Returns:
             Software edition
         """
-
+        self.fetch()
         soft_type = self._info['bedrock']
         return Edition(soft_type)
 
@@ -338,7 +355,7 @@ class AternosServer:
         Returns:
             Is it Minecraft JE
         """
-
+        self.fetch()
         return not self._info['bedrock']
 
     @property
@@ -348,7 +365,7 @@ class AternosServer:
         Returns:
             Is it Minecraft BE
         """
-
+        self.fetch()
         return bool(self._info['bedrock'])
 
     @property
@@ -358,7 +375,7 @@ class AternosServer:
         Returns:
             Software name
         """
-
+        self.fetch()
         return self._info['software']
 
     @property
@@ -368,7 +385,7 @@ class AternosServer:
         Returns:
             Software version
         """
-
+        self.fetch()
         return self._info['version']
 
     @property
@@ -382,7 +399,7 @@ class AternosServer:
         Returns:
             CSS class
         """
-
+        self.fetch()
         return self._info['class']
 
     @property
@@ -393,7 +410,7 @@ class AternosServer:
         Returns:
             Status string
         """
-
+        self.fetch()
         return self._info['lang']
 
     @property
@@ -405,7 +422,7 @@ class AternosServer:
         Returns:
             Status code
         """
-
+        self.fetch()
         return Status(self._info['status'])
 
     @property
@@ -415,7 +432,7 @@ class AternosServer:
         Returns:
             Connected players
         """
-
+        self.fetch()
         return self._info['playerlist']
 
     @property
@@ -425,7 +442,7 @@ class AternosServer:
         Returns:
             Connected players count
         """
-
+        self.fetch()
         return int(self._info['players'])
 
     @property
@@ -436,7 +453,7 @@ class AternosServer:
         Returns:
             Slots count
         """
-
+        self.fetch()
         return int(self._info['slots'])
 
     @property
@@ -446,7 +463,7 @@ class AternosServer:
         Returns:
             Used RAM
         """
-
+        self.fetch()
         return int(self._info['ram'])
 
     @property
@@ -457,6 +474,9 @@ class AternosServer:
         Returns:
             Stop countdown
         """
-
+        self.fetch()
         value = self._info['countdown']
         return int(value or -1)
+
+
+
