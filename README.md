@@ -34,7 +34,7 @@ Python Aternos supports:
  - Parsing Minecraft servers list
  - Parsing server info by its ID
  - Starting/stoping server, restarting, confirming/cancelling launch
- - Updating server info in real-time (see [WebSocket API](https://python-aternos.codeberg.page/howto/websocket))
+ - Updating server info in real-time (see [WebSocket API](https://python-aternos.codeberg.page/howto/websocket)) `NOT IMPLEMENTED`
  - Changing server subdomain and MOTD (message-of-the-day)
  - Managing files, settings, players (whitelist, operators, etc.)
 
@@ -52,7 +52,7 @@ $ pip install python-aternos
 
 ### Development
 ```bash
-$ git clone https://github.com/DarkCat09/python-aternos.git
+$ git clone https://github.com/BOXERRMD/python-aternos.git
 $ cd python-aternos
 $ pip install -e .[dev]
 ```
@@ -117,22 +117,23 @@ if testserv is not None:
 ## [How-To Guide](https://python-aternos.codeberg.page/howto/auth)
 
 ## Changelog
-|Version|Description |
-|:-----:|:-----------|
-|v0.3|Implemented files API, added typization.|
-|v0.4|Implemented configuration API, some bugfixes.|
-|v0.5|The API was updated corresponding to new Aternos security methods. Huge thanks to [lusm554](https://github.com/lusm554).|
-|**v0.6/v1.0.0**|Code refactoring, websockets API and session saving to prevent detecting automation access.|
-|v1.0.x|Lots of bugfixes, changed versioning (SemVer).|
-|v1.1.x|Documentation, unit tests, pylint, bugfixes, changes in atwss.|
-|**v1.1.2/v2.0.0**|Solution for [#25](https://github.com/DarkCat09/python-aternos/issues/25) (Cloudflare bypassing), bugfixes in JS parser.|
-|v2.0.x|Documentation, automatically saving/restoring session, improvements in Files API.|
-|v2.1.x|Fixes in websockets API, atconnect (including cookie refreshing fix). Support for captcha solving services (view [#52](https://github.com/DarkCat09/python-aternos/issues/52)).|
-|v2.2.x|Node.JS interpreter support.|
-|v3.0.0|Partially rewritten, API updates.|
-|v3.0.5|Unmaintained.|
-|v3.1.x|TODO: Full implementation of config API.|
-|v3.2.x|TODO: Shared access API and maybe Google Drive backups.|
+|      Version      | Description                                                                                                                                                                     |
+|:-----------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|       v0.3        | Implemented files API, added typization.                                                                                                                                        |
+|       v0.4        | Implemented configuration API, some bugfixes.                                                                                                                                   |
+|       v0.5        | The API was updated corresponding to new Aternos security methods. Huge thanks to [lusm554](https://github.com/lusm554).                                                        |
+|  **v0.6/v1.0.0**  | Code refactoring, websockets API and session saving to prevent detecting automation access.                                                                                     |
+|      v1.0.x       | Lots of bugfixes, changed versioning (SemVer).                                                                                                                                  |
+|      v1.1.x       | Documentation, unit tests, pylint, bugfixes, changes in atwss.                                                                                                                  |
+| **v1.1.2/v2.0.0** | Solution for [#25](https://github.com/DarkCat09/python-aternos/issues/25) (Cloudflare bypassing), bugfixes in JS parser.                                                        |
+|      v2.0.x       | Documentation, automatically saving/restoring session, improvements in Files API.                                                                                               |
+|      v2.1.x       | Fixes in websockets API, atconnect (including cookie refreshing fix). Support for captcha solving services (view [#52](https://github.com/DarkCat09/python-aternos/issues/52)). |
+|      v2.2.x       | Node.JS interpreter support.                                                                                                                                                    |
+|      v3.0.0       | Partially rewritten, API updates.                                                                                                                                               |
+|      v3.0.5       | Unmaintained.                                                                                                                                                                   |
+|      v3.1.x       | TODO: Full implementation of config API.                                                                                                                                        |
+|      v3.2.x       | TODO: Shared access API and maybe Google Drive backups.                                                                                                                         |
+|      v3.0.7       | Maintained                                                                                                                                                                      |
 
 ## Reversed API Specification
 Private Aternos API requests were captured into
@@ -159,3 +160,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+#### *Thank to **Darkcat09** for allowing me to continue maintaining this API*
+

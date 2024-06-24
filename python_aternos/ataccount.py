@@ -14,6 +14,7 @@ from .atmd5 import md5encode
 
 from .atconnect import AternosConnect
 from .atconnect import BASE_URL, AJAX_URL
+from .aterrors import ChangeUsernameError
 
 from .atserver import AternosServer
 
@@ -55,13 +56,13 @@ class AternosAccount:
         Returns:
             List of AternosServer objects
         """
-
         if cache and self.parsed:
             return self.servers
 
         serverspage = self.atconn.request_cloudflare(
             f'{BASE_URL}/servers/', 'GET'
         )
+
         serverstree = lxml.html.fromstring(serverspage.content)
 
         servers = serverstree.xpath(
@@ -116,11 +117,14 @@ class AternosAccount:
             value (str): New username
         """
 
-        self.atconn.request_cloudflare(
-            f'{ACCOUNT_URL}/username',
+        u = self.atconn.request_cloudflare(
+            f'{ACCOUNT_URL}/set-username',
             'POST', data={'username': value},
             sendtoken=True,
-        )
+        ).json()
+
+        if u['error'] != None:
+            raise ChangeUsernameError(u['error'])
 
     def change_email(self, value: str) -> None:
         """Changes an e-mail in your Aternos account
@@ -179,7 +183,7 @@ class AternosAccount:
         a QR code for enabling 2FA"""
 
         return self.atconn.request_cloudflare(
-            f'{ACCOUNT_URL}/secret',
+            f'{ACCOUNT_URL}/generate-2fa-secret',
             'GET', sendtoken=True,
         ).json()
 
