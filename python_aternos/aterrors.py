@@ -12,6 +12,10 @@ class ChangeUsernameError(AternosError):
     Raised when the username is already used by another user
     """
 
+class CountdownError(AternosError):
+    """
+    Raised when adding countdown is not possible
+    """
 
 class CloudflareError(AternosError):
 
