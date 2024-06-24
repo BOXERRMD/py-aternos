@@ -153,6 +153,7 @@ class Client:
         """
 
         file = os.path.expanduser(file)
+
         log.debug('Restoring session from %s', file)
 
         if not os.path.exists(file):

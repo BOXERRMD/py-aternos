@@ -262,6 +262,7 @@ class AternosConnect:
         html_type = resp_type.find('text/html') != -1
         cloudflare = req.status_code == 403
 
+
         if html_type and cloudflare:
             log.info('Retrying to bypass Cloudflare')
             time.sleep(0.3)

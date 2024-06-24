@@ -151,7 +151,7 @@ class AternosServer:
         )
         startresult = startreq.json()
 
-        print(startresult)
+        #print(startresult)
 
         if startresult['success']:
             return
@@ -163,7 +163,7 @@ class AternosServer:
             self.start(accepteula=False)
             return
 
-        if info['error'] != None and info['data']['status'] == 'already':
+        if info['error'] != None and info['data']['status'] != 'offline':
             info = 'already'
 
         raise ServerStartError(info)
@@ -183,14 +183,6 @@ class AternosServer:
         return False
 
 
-    def starting_stat(self):
-        """Return actual status server
-
-        Return:
-            str -> self.status
-        """
-
-        return self.status
 
     def stop(self) -> None:
         """Stops the server"""

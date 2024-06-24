@@ -7,6 +7,11 @@ class AternosError(Exception):
 
     """Common error class"""
 
+class ChangeUsernameError(AternosError):
+    """
+    Raised when the username is already used by another user
+    """
+
 
 class CloudflareError(AternosError):
 
