@@ -17,7 +17,7 @@ from .atplayers import Lists
 from .atfm import FileManager
 from .atconf import AternosConfig
 
-from .aterrors import AternosError
+from .aterrors import AternosError, CountdownError
 from .aterrors import ServerStartError
 
 
@@ -183,6 +183,18 @@ class AternosServer:
         return False
 
 
+    def add_countdown(self):
+        """
+        Add 1 minute to the countdown
+        """
+
+        u = self.atserver_request(
+            f'{SERVER_URL}/extend-end',
+            'GET', sendtoken=True,
+        ).json()
+
+        if u['error'] != None:
+            raise CountdownError(u['error'])
 
     def stop(self) -> None:
         """Stops the server"""

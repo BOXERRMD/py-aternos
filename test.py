@@ -19,6 +19,21 @@ print(u)
 
 a = u[0]
 
+a.stop()
+
+exit()
+
+if not a.confirm():
+    a.start()
+
+
+while True:
+
+    if a.countdown < 60 and a.confirm():
+        a.add_countdown()
+
+    time.sleep(10)
+
 
 
 

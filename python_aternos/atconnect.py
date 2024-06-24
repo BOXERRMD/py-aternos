@@ -163,7 +163,7 @@ class AternosConnect:
             reqcookies: Optional[Dict[Any, Any]] = None,
             sendtoken: bool = False,
             retries: int = 5,
-            timeout: int = 4) -> requests.Response:
+            timeout: int = 10) -> requests.Response:
         """Sends a request to Aternos API bypass Cloudflare
 
         Args:
@@ -257,6 +257,7 @@ class AternosConnect:
             cookies=reqcookies,
             timeout=timeout,
         )
+
 
         resp_type = req.headers.get('content-type', '')
         html_type = resp_type.find('text/html') != -1
