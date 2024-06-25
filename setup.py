@@ -4,17 +4,17 @@ with open('README.md', 'rt') as readme:
     long_description = readme.read()
 
 setuptools.setup(
-    name='python-aternos',
-    version='3.0.6',
-    author='Andrey @DarkCat09',
+    name='py-aternos',
+    version='3.0.71',
+    author='Andrey @DarkCat09 and BOXERRMD',
     author_email='py@dc09.ru',
     description='An unofficial Aternos API',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/DarkCat09/python-aternos',
+    url='https://github.com/BOXERRMD/py-aternos',
     project_urls={
         'Documentation': 'https://python-aternos.codeberg.page',
-        'GitHub': 'https://github.com/DarkCat09/python-aternos',
+        'GitHub': 'https://github.com/BOXERRMD/py-aternos',
         'Bug Tracker': 'https://github.com/DarkCat09/python-aternos/issues',
     },
     classifiers=[

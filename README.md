@@ -1,7 +1,7 @@
 <div align="center">
     <img src="https://i.ibb.co/3RXcXJ1/aternos-400.png" alt="Python Aternos Logo">
     <h1>
-        [UNMAINTAINED] Python Aternos
+        Python Aternos
         <div>
             <a href="https://pypi.org/project/python-aternos/">
                 <img src="https://img.shields.io/pypi/v/python-aternos">

@@ -1,11 +1,11 @@
 build:
-	python3 -m build
+	py -m build
 
 upload:
-	python3 -m twine upload dist/*
+	py -m twine upload dist/*
 
 doc:
-	python3 -m mkdocs build
+	py -m mkdocs build
 
 clean:
 	rm -rf dist build python_aternos.egg-info
