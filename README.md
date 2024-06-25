@@ -42,18 +42,18 @@ Python Aternos supports:
 
 ### Common
 ```bash
-$ pip install python-aternos
+$ pip install py-aternos
 ```
 > **Note** for Windows users
 >
 > Install `lxml` package from [here](https://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml)
 > if you have problems with it, and then execute:  
-> `pip install --no-deps python-aternos`
+> `pip install --no-deps py-aternos`
 
 ### Development
 ```bash
-$ git clone https://github.com/BOXERRMD/python-aternos.git
-$ cd python-aternos
+$ git clone https://github.com/BOXERRMD/py-aternos.git
+$ cd py-aternos
 $ pip install -e .[dev]
 ```
 
