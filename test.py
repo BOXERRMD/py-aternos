@@ -11,7 +11,7 @@ atclient = Client()
 
 # Log in
 # with username and password
-atclient.login('test7747', '147258369')
+atclient.login('test7747', '14725836', restore_session=True)
 
 
 u = atclient.account.list_servers(cache=False)
@@ -19,9 +19,6 @@ print(u)
 
 a = u[0]
 
-a.stop()
-
-exit()
 
 if not a.confirm():
     a.start()

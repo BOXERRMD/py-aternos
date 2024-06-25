@@ -40,7 +40,8 @@ class Client:
             self,
             username: str,
             password: str,
-            code: Optional[int] = None) -> None:
+            code: Optional[int] = None,
+            restore_session : Optional[bool] = True) -> None:
         """Log in to your Aternos account
         with a username and a plain password
 
@@ -54,13 +55,15 @@ class Client:
             username,
             md5encode(password),
             code,
+            restore_session
         )
 
     def login_hashed(
             self,
             username: str,
             md5: str,
-            code: Optional[int] = None) -> None:
+            code: Optional[int] = None,
+            restore_session : Optional[bool] = True) -> None:
         """Log in to your Aternos account
         with a username and a hashed password
 
@@ -83,7 +86,8 @@ class Client:
         )
 
         try:
-            self.restore_session(filename)
+            if restore_session:
+                self.restore_session(filename)
         except (OSError, CredentialsError):
             pass
 
@@ -128,6 +132,7 @@ class Client:
         self.atconn.parse_token()
         self.atconn.generate_sec()
         self.atconn.session.cookies['ATERNOS_SESSION'] = session
+
 
     def logout(self) -> None:
         """Log out from the Aternos account"""
