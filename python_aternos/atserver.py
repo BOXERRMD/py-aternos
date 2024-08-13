@@ -169,7 +169,7 @@ class AternosServer:
         raise ServerStartError(info)
 
 
-    def confirm(self) -> None:
+    def confirm(self) -> bool:
         """Confirms server launching
 
         Return:
