@@ -2,6 +2,10 @@
 
 # TODO: Still needs refactoring
 
+"""
+https://aternos.org/ajax/server/software/install?software=K9veXMh73iW0H7du&reinstall=1&SEC=y4h3p7nl1qg00000%3A8ul5ixshs9m00000&TOKEN=dGjEHJTpYTgZXp43o5Cv&SERVER=d0mC0KYKV3flOhMI
+"""
+
 import enum
 import re
 
@@ -148,7 +152,7 @@ class AternosConfig:
         optreq = self.atserv.atserver_request(
             f'{BASE_URL}/options', 'GET'
         )
-        opttree = lxml.html.fromstring(optreq)
+        opttree = lxml.html.fromstring(optreq.content)
 
         tzopt = opttree.xpath(
             '//div[@class="options-other-input timezone-switch"]'
@@ -190,7 +194,7 @@ class AternosConfig:
             f'{BASE_URL}/options', 'GET'
         )
 
-        opttree = lxml.html.fromstring(optreq)
+        opttree = lxml.html.fromstring(optreq.content)
         imgopt = opttree.xpath(
             '//div[@class="options-other-input image-switch"]'
         )[0]
@@ -198,7 +202,7 @@ class AternosConfig:
             './/div[@class="option current"]/@data-value'
         )[0]
 
-        jdkver = str(imgver or '').removeprefix('openjdk:')
+        jdkver = str(imgver or '').split(':')[1]
         return int(jdkver)
 
     def set_java(self, value: int) -> None:
@@ -210,7 +214,7 @@ class AternosConfig:
 
         self.atserv.atserver_request(
             f'{AJAX_URL}/image.php',
-            'POST', data={'image': f'openjdk:{value}'},
+            'POST', data={'image': f'eclipse-temurin:{value}'},
             sendtoken=True
         )
 
@@ -344,6 +348,7 @@ class AternosConfig:
     def __get_all_props(
             self, url: str, proptyping: bool = True,
             prefixes: Optional[List[str]] = None) -> Dict[str, Any]:
+        global result
 
         optreq = self.atserv.atserver_request(url, 'GET')
         opttree = lxml.html.fromstring(optreq.content)
