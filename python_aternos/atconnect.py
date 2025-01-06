@@ -14,6 +14,7 @@ from typing import List, Dict, Any
 import requests
 
 from cloudscraper import CloudScraper
+from requests import Response
 
 from .atlog import log, is_debug
 
@@ -45,6 +46,7 @@ class AternosConnect:
     def __init__(self) -> None:
 
         self.session = CloudScraper()
+        self.session.create_scraper(browser='chrome')
         self.sec = ''
         self.token = ''
         self.atcookie = ''
@@ -250,14 +252,12 @@ class AternosConnect:
             )
 
 
-
-        req = sendreq(
+        req: Response = sendreq(
             url,
             headers=headers,
             cookies=reqcookies,
             timeout=timeout,
         )
-
 
         resp_type = req.headers.get('content-type', '')
         html_type = resp_type.find('text/html') != -1

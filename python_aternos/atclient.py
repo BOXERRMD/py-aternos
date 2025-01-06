@@ -33,7 +33,7 @@ class Client:
         # ###
 
         self.saved_session = '~/.aternos'  # will be rewritten by login()
-        self.atconn = AternosConnect()
+        self.__atconn = AternosConnect()
         self.account = AternosAccount(self)
 
     def login(
@@ -92,8 +92,8 @@ class Client:
             pass
 
         atjsparse.get_interpreter(create=self.js)
-        self.atconn.parse_token()
-        self.atconn.generate_sec()
+        self.__atconn.parse_token()
+        self.__atconn.generate_sec()
 
         credentials = {
             'username': username,
@@ -103,7 +103,7 @@ class Client:
         if code is not None:
             credentials['code'] = str(code)
 
-        loginreq = self.atconn.request_cloudflare(
+        loginreq = self.__atconn.request_cloudflare(
             f'{AJAX_URL}/account/login',
             'POST', data=credentials, sendtoken=True,
         )
@@ -111,6 +111,7 @@ class Client:
         if b'"show2FA":true' in loginreq.content:
             raise TwoFactorAuthError('2FA code is required')
 
+        print(loginreq.content)
         if 'ATERNOS_SESSION' not in loginreq.cookies:
             raise CredentialsError(
                 'Check your username and password'
@@ -129,15 +130,15 @@ class Client:
             session (str): Session cookie value
         """
 
-        self.atconn.parse_token()
-        self.atconn.generate_sec()
-        self.atconn.session.cookies['ATERNOS_SESSION'] = session
+        self.__atconn.parse_token()
+        self.__atconn.generate_sec()
+        self.__atconn.session.cookies['ATERNOS_SESSION'] = session
 
 
     def logout(self) -> None:
         """Log out from the Aternos account"""
 
-        self.atconn.request_cloudflare(
+        self.__atconn.request_cloudflare(
             f'{AJAX_URL}/account/logout',
             'GET', sendtoken=True,
         )
@@ -179,7 +180,7 @@ class Client:
         if len(saved) > 1:
             self.account.refresh_servers(saved[1:])
 
-        self.atconn.session.cookies['ATERNOS_SESSION'] = session
+        self.__atconn.session.cookies['ATERNOS_SESSION'] = session
         self.saved_session = file
 
     def save_session(
@@ -201,7 +202,7 @@ class Client:
 
         with open(file, 'wt', encoding='utf-8') as f:
 
-            f.write(self.atconn.atsession + '\n')
+            f.write(self.__atconn.atsession + '\n')
             if not incl_servers:
                 return
 
@@ -255,3 +256,7 @@ class Client:
     @debug.setter
     def debug(self, state: bool) -> None:
         return set_debug(state)
+
+    @property
+    def atconn(self) -> AternosConnect:
+        return self.__atconn
